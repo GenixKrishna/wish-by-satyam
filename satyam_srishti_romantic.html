@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#09020a" />
+    <title>For Srishti ❤️ — From Satyam</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --bg: #09020a;
+            --pink: #ff4f91;
+            --rose: #ff789f;
+            --soft: #ffd2df;
+            --white: #fff8fb;
+            --glass: rgba(255,255,255,.075);
+            --glass-border: rgba(255,255,255,.16);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--bg);
+        }
+
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at 50% 20%, rgba(255, 61, 126, .14), transparent 28%),
+                radial-gradient(circle at 10% 80%, rgba(160, 55, 255, .10), transparent 25%),
+                var(--bg);
+            color: var(--white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        button, input { font: inherit; }
+
+        #app {
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ---------- Ambient background ---------- */
+        .scene {
+            min-height: 100vh;
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 42%, rgba(255, 65, 130, .11), transparent 26%),
+                linear-gradient(135deg, #12030e 0%, #09020a 42%, #0d0312 100%);
+        }
+
+        .scene::before,
+        .scene::after {
+            content: "";
+            position: absolute;
+            inset: -25%;
+            pointer-events: none;
+            z-index: -3;
+        }
+
+        .scene::before {
+            background:
+                radial-gradient(circle at 30% 35%, rgba(255, 77, 135, .18), transparent 20%),
+                radial-gradient(circle at 72% 68%, rgba(125, 63, 255, .13), transparent 22%);
+            filter: blur(60px);
+            animation: ambientDrift 18s ease-in-out infinite alternate;
+        }
+
+        .scene::after {
+            background: linear-gradient(120deg, transparent 35%, rgba(255,255,255,.018), transparent 65%);
+            transform: translateX(-50%);
+            animation: lightSweep 12s ease-in-out infinite;
+        }
+
+        @keyframes ambientDrift {
+            0% { transform: translate3d(-3%, -2%, 0) scale(1); }
+            100% { transform: translate3d(4%, 3%, 0) scale(1.08); }
+        }
+
+        @keyframes lightSweep {
+            0%, 55% { transform: translateX(-70%) rotate(8deg); opacity: 0; }
+            65% { opacity: 1; }
+            100% { transform: translateX(70%) rotate(8deg); opacity: 0; }
+        }
+
+        /* ---------- Stars / particles ---------- */
+        .particle-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.85);
+            box-shadow: 0 0 12px rgba(255, 182, 211, .9);
+            animation: twinkle var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: .12; transform: scale(.6); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: .45;
+            mix-blend-mode: screen;
+            animation: orbFloat var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        .orb::after {
+            content: "";
+            position: absolute;
+            inset: 18%;
+            border-radius: inherit;
+            background: radial-gradient(circle at 35% 30%, white, rgba(255,255,255,.12) 18%, transparent 60%);
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+            50% { transform: translate3d(var(--x), var(--y), 0) scale(1.12); }
+        }
+
+        /* ---------- Main card ---------- */
+        .content-wrap {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 32px 16px 90px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .glass-card {
+            width: min(720px, 100%);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            border-radius: 34px;
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.035)),
+                rgba(17, 5, 15, .70);
+            backdrop-filter: blur(24px) saturate(135%);
+            -webkit-backdrop-filter: blur(24px) saturate(135%);
+            box-shadow:
+                0 35px 100px rgba(0,0,0,.52),
+                inset 0 1px 0 rgba(255,255,255,.12),
+                0 0 70px rgba(255, 48, 120, .08);
+            padding: clamp(28px, 5vw, 54px);
+            transform-style: preserve-3d;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(115deg, rgba(255,255,255,.10), transparent 18%, transparent 72%, rgba(255,100,160,.05));
+            pointer-events: none;
+        }
+
+        .glass-card::after {
+            content: "";
+            position: absolute;
+            top: -120px;
+            right: -100px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: rgba(255, 82, 142, .10);
+            filter: blur(45px);
+            pointer-events: none;
+        }
+
+        .step-enter {
+            animation: stepEnter .7s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        @keyframes stepEnter {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(.97) rotateX(2deg);
+                filter: blur(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotateX(0);
+                filter: blur(0);
+            }
+        }
+
+        /* ---------- 3D heart ---------- */
+        .heart-stage {
+            height: 220px;
+            display: grid;
+            place-items: center;
+            perspective: 900px;
+            margin-bottom: 8px;
+        }
+
+        .heart-3d {
+            position: relative;
+            width: 112px;
+            height: 112px;
+            transform-style: preserve-3d;
+            transform: rotate(-45deg) rotateX(8deg) rotateY(-10deg);
+            animation: heart3D 5s ease-in-out infinite;
+            filter:
+                drop-shadow(0 25px 35px rgba(255, 34, 105, .28))
+                drop-shadow(0 0 35px rgba(255, 69, 137, .25));
+        }
+
+        .heart-3d::before,
+        .heart-3d::after {
+            content: "";
+            position: absolute;
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff9ab8 0%, #ff4c86 35%, #d41459 100%);
+            box-shadow:
+                inset -12px -14px 20px rgba(103, 0, 35, .25),
+                inset 12px 10px 16px rgba(255,255,255,.22);
+        }
+
+        .heart-3d::before { top: -56px; left: 0; }
+        .heart-3d::after { top: 0; left: 56px; }
+
+        .heart-core {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            width: 112px;
+            height: 112px;
+            background: linear-gradient(145deg, #ff9ab8, #ff3f79 50%, #c60c4d);
+            box-shadow:
+                inset -15px -18px 25px rgba(89,0,30,.30),
+                inset 14px 12px 20px rgba(255,255,255,.20);
+        }
+
+        .heart-highlight {
+            position: absolute;
+            z-index: 5;
+            width: 34px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.48);
+            filter: blur(3px);
+            top: 8px;
+            left: 35px;
+            transform: rotate(45deg);
+        }
+
+        @keyframes heart3D {
+            0%, 100% { transform: rotate(-45deg) rotateX(8deg) rotateY(-10deg) translateY(0) scale(1); }
+            50% { transform: rotate(-39deg) rotateX(-2deg) rotateY(16deg) translateY(-14px) scale(1.06); }
+        }
+
+        /* ---------- Typography ---------- */
+        .eyebrow {
+            color: #ffabc5;
+            text-transform: uppercase;
+            letter-spacing: .25em;
+            font-size: .72rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .title {
+            font-size: clamp(2.8rem, 9vw, 5.5rem);
+            line-height: .95;
+            font-weight: 900;
+            letter-spacing: -.055em;
+            background: linear-gradient(135deg, #fff 0%, #ffd5e2 35%, #ff6d9e 72%, #ff3c78 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 8px 25px rgba(255, 58, 125, .18));
+        }
+
+        .subtitle {
+            color: rgba(255, 221, 231, .76);
+            line-height: 1.75;
+        }
+
+        /* ---------- Buttons ---------- */
+        .premium-btn {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.16);
+            background: linear-gradient(135deg, #ff5c91, #e72b68);
+            color: white;
+            border-radius: 999px;
+            padding: 14px 25px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow:
+                0 14px 30px rgba(220, 25, 91, .28),
+                inset 0 1px 0 rgba(255,255,255,.28);
+            transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+        }
+
+        .premium-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 45%;
+            left: -60%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+            transform: skewX(-20deg);
+            transition: left .65s ease;
+        }
+
+        .premium-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 20px 45px rgba(220, 25, 91, .38),
+                0 0 30px rgba(255, 72, 134, .16);
+        }
+
+        .premium-btn:hover::before { left: 125%; }
+
+        .premium-btn:active { transform: scale(.98); }
+
+        .ghost-btn {
+            border: 1px solid rgba(255,255,255,.14);
+            background: rgba(255,255,255,.06);
+            color: #ffdce8;
+            border-radius: 999px;
+            padding: 12px 22px;
+            cursor: pointer;
+            transition: .3s ease;
+        }
+
+        .ghost-btn:hover {
+            background: rgba(255,255,255,.11);
+            transform: translateY(-2px);
+        }
+
+        /* ---------- Letter ---------- */
+        .letter {
+            position: relative;
+            text-align: left;
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,.10);
+            background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+        }
+
+        .letter::before {
+            content: "❤";
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            color: rgba(255, 96, 146, .18);
+            font-size: 3rem;
+            transform: rotate(15deg);
+        }
+
+        .letter p {
+            color: rgba(255, 231, 239, .82);
+            line-height: 1.85;
+            margin-bottom: 13px;
+            font-size: 1rem;
+        }
+
+        .letter .hello {
+            color: #fff;
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        /* ---------- 3D teddy scene ---------- */
+        .teddy-scene {
+            height: 285px;
+            position: relative;
+            display: grid;
+            place-items: center;
+            perspective: 1000px;
+        }
+
+        .ground-glow {
+            position: absolute;
+            width: 240px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(255, 51, 120, .28);
+            filter: blur(22px);
+            bottom: 22px;
+            animation: groundPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes groundPulse {
+            0%,100% { transform: scale(.8); opacity: .45; }
+            50% { transform: scale(1.15); opacity: .85; }
+        }
+
+        .teddy {
+            position: relative;
+            width: 150px;
+            height: 175px;
+            transform-style: preserve-3d;
+            animation: teddy3D 4.5s ease-in-out infinite;
+            filter: drop-shadow(0 28px 20px rgba(0,0,0,.38));
+        }
+
+        .ear {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #d89a6b, #8b4f32);
+            top: 4px;
+            z-index: 0;
+            box-shadow: inset 7px 6px 10px rgba(255,255,255,.12), inset -10px -10px 15px rgba(55,20,10,.25);
+        }
+
+        .ear.left { left: 4px; }
+        .ear.right { right: 4px; }
+
+        .head {
+            position: absolute;
+            width: 118px;
+            height: 108px;
+            left: 16px;
+            top: 25px;
+            border-radius: 48% 48% 45% 45%;
+            background: linear-gradient(145deg, #e6ae7c, #9a5b3a 70%);
+            z-index: 2;
+            box-shadow: inset 10px 8px 15px rgba(255,255,255,.14), inset -15px -15px 22px rgba(63,22,9,.28);
+        }
+
+        .eye {
+            position: absolute;
+            width: 12px;
+            height: 16px;
+            border-radius: 50%;
+            background: #160b09;
+            top: 43px;
+            box-shadow: 0 0 7px rgba(255,255,255,.14);
+        }
+
+        .eye.left { left: 30px; }
+        .eye.right { right: 30px; }
+
+        .muzzle {
+            position: absolute;
+            width: 54px;
+            height: 43px;
+            border-radius: 50%;
+            background: #e5b183;
+            left: 32px;
+            top: 54px;
+            box-shadow: inset 0 6px 10px rgba(255,255,255,.12);
+        }
+
+        .nose {
+            position: absolute;
+            width: 17px;
+            height: 13px;
+            border-radius: 50% 50% 55% 55%;
+            background: #3c1710;
+            left: 18px;
+            top: 10px;
+        }
+
+        .mouth {
+            position: absolute;
+            width: 17px;
+            height: 10px;
+            border-bottom: 2px solid #3c1710;
+            border-radius: 50%;
+            left: 18px;
+            top: 19px;
+        }
+
+        .body {
+            position: absolute;
+            width: 105px;
+            height: 105px;
+            left: 23px;
+            top: 88px;
+            border-radius: 48% 48% 40% 40%;
+            background: linear-gradient(145deg, #dba06e, #854a30 75%);
+            z-index: 1;
+            box-shadow: inset 10px 8px 15px rgba(255,255,255,.10), inset -18px -18px 25px rgba(56,18,8,.30);
+        }
+
+        .belly {
+            position: absolute;
+            width: 62px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(239, 187, 135, .72);
+            left: 21px;
+            top: 20px;
+        }
+
+        .arm {
+            position: absolute;
+            width: 40px;
+            height: 76px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #d69a69, #82472e);
+            top: 100px;
+            z-index: 0;
+        }
+
+        .arm.left { left: 0; transform: rotate(20deg); }
+        .arm.right { right: 0; transform: rotate(-20deg); }
+
+        .heart-prop {
+            position: absolute;
+            z-index: 5;
+            font-size: 42px;
+            animation: heartProp 2.8s ease-in-out infinite;
+            filter: drop-shadow(0 7px 10px rgba(255,30,90,.32));
+        }
+
+        @keyframes heartProp {
+            0%,100% { transform: translateY(4px) rotate(-7deg) scale(1); }
+            50% { transform: translateY(-12px) rotate(7deg) scale(1.12); }
+        }
+
+        @keyframes teddy3D {
+            0%,100% { transform: translateY(5px) rotateY(-7deg) rotateX(1deg); }
+            50% { transform: translateY(-12px) rotateY(8deg) rotateX(-2deg); }
+        }
+
+        /* ---------- Roses ---------- */
+        .rose-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 12px 0 22px;
+        }
+
+        .rose {
+            font-size: 2rem;
+            filter: drop-shadow(0 8px 12px rgba(255, 40, 90, .2));
+            animation: roseFloat 3s ease-in-out infinite;
+        }
+
+        .rose:nth-child(2) { animation-delay: .35s; }
+        .rose:nth-child(3) { animation-delay: .7s; }
+
+        @keyframes roseFloat {
+            0%,100% { transform: translateY(0) rotate(-4deg); }
+            50% { transform: translateY(-8px) rotate(5deg); }
+        }
+
+        /* ---------- Final screen ---------- */
+        .final-ring {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            margin: 0 auto 22px;
+            display: grid;
+            place-items: center;
+            position: relative;
+            background: radial-gradient(circle, rgba(255,80,140,.25), rgba(255,80,140,.04) 52%, transparent 70%);
+        }
+
+        .final-ring::before,
+        .final-ring::after {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(255,130,170,.22);
+            border-radius: 50%;
+            animation: ringSpin 8s linear infinite;
+        }
+
+        .final-ring::after {
+            inset: 28px;
+            border-style: dashed;
+            animation-direction: reverse;
+            animation-duration: 5s;
+        }
+
+        @keyframes ringSpin { to { transform: rotate(360deg); } }
+
+        .final-heart {
+            font-size: 5rem;
+            animation: finalHeart 2.8s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255,52,125,.55));
+        }
+
+        @keyframes finalHeart {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.14); }
+        }
+
+        /* ---------- Music button ---------- */
+        .music-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 100;
+            border: 1px solid rgba(255,255,255,.16);
+            background: rgba(22, 5, 17, .64);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: white;
+            border-radius: 999px;
+            padding: 11px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.32);
+            transition: .3s ease;
+        }
+
+        .music-btn:hover { transform: translateY(-3px); background: rgba(255,255,255,.10); }
+
+        .music-btn.playing {
+            animation: musicGlow 1.8s ease-in-out infinite;
+        }
+
+        @keyframes musicGlow {
+            0%,100% { box-shadow: 0 10px 28px rgba(0,0,0,.3), 0 0 0 rgba(255,60,125,0); }
+            50% { box-shadow: 0 10px 28px rgba(0,0,0,.3), 0 0 25px rgba(255,60,125,.28); }
+        }
+
+        /* ---------- Confetti / floating hearts ---------- */
+        .heart-particle,
+        .petal {
+            position: fixed;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .heart-particle {
+            bottom: -50px;
+            font-size: var(--size);
+            animation: heartRise var(--duration) linear forwards;
+        }
+
+        @keyframes heartRise {
+            0% {
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(.65);
+                opacity: 0;
+            }
+            10% { opacity: .8; }
+            100% {
+                transform: translate3d(var(--drift), -115vh, 0) rotate(35deg) scale(1.15);
+                opacity: 0;
+            }
+        }
+
+        .petal {
+            top: -40px;
+            font-size: var(--size);
+            animation: petalFall var(--duration) linear infinite;
+            opacity: .55;
+        }
+
+        @keyframes petalFall {
+            0% { transform: translate3d(0, -40px, 0) rotate(0deg); }
+            100% { transform: translate3d(var(--drift), 115vh, 0) rotate(700deg); }
+        }
+
+        .confetti-piece {
+            position: fixed;
+            top: -20px;
+            width: 8px;
+            height: 16px;
+            z-index: 200;
+            border-radius: 3px;
+            pointer-events: none;
+            animation: confettiFall 3.2s cubic-bezier(.2,.7,.3,1) forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translate3d(0, -20px, 0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate3d(var(--drift), 115vh, 0) rotate(900deg);
+                opacity: 0;
+            }
+        }
+
+        /* ---------- Accessibility / responsive ---------- */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .001ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .content-wrap { padding: 18px 12px 80px; }
+            .glass-card { border-radius: 26px; padding: 25px 19px; }
+            .heart-stage { height: 190px; }
+            .teddy-scene { height: 245px; transform: scale(.9); }
+            .letter { padding: 20px 17px; }
+            .music-btn { right: 12px; bottom: 12px; }
+            .music-btn span { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <div class="particle-layer" id="particleLayer"></div>
+
+    <script>
+        /* ============================================================
+           ROMANTIC SURPRISE — SATYAM ❤️ SRISHTI
+           Single-file HTML
+           ============================================================ */
+
+        // ---------------- MUSIC ----------------
+        // Existing music URL preserved from the original file.
+        const MUSIC_URL =
+            'https://www.image2url.com/r2/default/audio/1785571801682-40a6cb68-fc9e-44d4-ae6b-f9a67e383a85.m4a';
+
+        let audioElement = null;
+        let isMusicPlaying = false;
+        let musicStarted = false;
+
+        function initMusic() {
+            if (audioElement) return;
+
+            audioElement = new Audio(MUSIC_URL);
+            audioElement.loop = true;
+            audioElement.volume = 0.4;
+            audioElement.preload = 'auto';
+
+            audioElement.addEventListener('ended', () => {
+                isMusicPlaying = false;
+                updateMusicButton();
+            });
+
+            audioElement.addEventListener('pause', () => {
+                isMusicPlaying = false;
+                updateMusicButton();
+            });
+
+            audioElement.addEventListener('play', () => {
+                isMusicPlaying = true;
+                musicStarted = true;
+                updateMusicButton();
+            });
+        }
+
+        async function startMusic() {
+            if (musicStarted) return;
+
+            initMusic();
+
+            try {
+                await audioElement.play();
+                musicStarted = true;
+                isMusicPlaying = true;
+            } catch (error) {
+                // Browser autoplay policy can block audio.
+            }
+
+            updateMusicButton();
+        }
+
+        async function toggleMusic() {
+            initMusic();
+
+            if (isMusicPlaying) {
+                audioElement.pause();
+                isMusicPlaying = false;
+            } else {
+                try {
+                    await audioElement.play();
+                    musicStarted = true;
+                    isMusicPlaying = true;
+                } catch (error) {
+                    console.log('Music playback was blocked.');
+                }
+            }
+
+            updateMusicButton();
+        }
+
+        function updateMusicButton() {
+            const btn = document.getElementById('musicButton');
+            if (!btn) return;
+
+            btn.innerHTML = isMusicPlaying
+                ? '🔊 <span>Music On</span>'
+                : '🔇 <span>Music Off</span>';
+
+            btn.classList.toggle('playing', isMusicPlaying);
+        }
+
+        function createMusicButton() {
+            const old = document.getElementById('musicButton');
+            if (old) old.remove();
+
+            const btn = document.createElement('button');
+            btn.id = 'musicButton';
+            btn.className = 'music-btn';
+            btn.type = 'button';
+            btn.setAttribute('aria-label', 'Toggle background music');
+            btn.innerHTML = '🔇 <span>Music Off</span>';
+            btn.addEventListener('click', toggleMusic);
+
+            document.body.appendChild(btn);
+            updateMusicButton();
+
+            // Preserve the original first-interaction behavior.
+            const firstInteraction = () => {
+                if (!musicStarted) startMusic();
+            };
+
+            document.addEventListener('pointerdown', firstInteraction, {
+                once: true,
+                passive: true
+            });
+        }
+
+        // ---------------- PARTICLES ----------------
+        function createBackgroundParticles() {
+            const layer = document.getElementById('particleLayer');
+            if (!layer) return;
+
+            // Stars
+            for (let i = 0; i < 45; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--duration', 1.8 + Math.random() * 3 + 's');
+                star.style.setProperty('--delay', Math.random() * 3 + 's');
+
+                layer.appendChild(star);
+            }
+
+            // Glowing ambient orbs
+            const orbSizes = [110, 150, 80, 125, 95];
+
+            orbSizes.forEach((size, index) => {
+                const orb = document.createElement('div');
+                orb.className = 'orb';
+
+                orb.style.width = size + 'px';
+                orb.style.height = size + 'px';
+                orb.style.left = (Math.random() * 90) + '%';
+                orb.style.top = (Math.random() * 90) + '%';
+
+                orb.style.background =
+                    index % 2 === 0
+                        ? 'radial-gradient(circle, rgba(255,65,130,.28), transparent 70%)'
+                        : 'radial-gradient(circle, rgba(137,78,255,.22), transparent 70%)';
+
+                orb.style.setProperty('--duration', 8 + Math.random() * 8 + 's');
+                orb.style.setProperty('--delay', Math.random() * 4 + 's');
+                orb.style.setProperty('--x', (Math.random() * 70 - 35) + 'px');
+                orb.style.setProperty('--y', (Math.random() * 70 - 35) + 'px');
+
+                layer.appendChild(orb);
+            });
+
+            // Floating romantic symbols
+            const symbols = ['❤', '♡', '✦', '🌸', '✨', '🌹'];
+
+            for (let i = 0; i < 18; i++) {
+                const el = document.createElement('div');
+                el.className = 'heart-particle';
+                el.textContent = symbols[i % symbols.length];
+
+                el.style.left = Math.random() * 100 + '%';
+                el.style.setProperty('--size', 10 + Math.random() * 20 + 'px');
+                el.style.setProperty('--duration', 7 + Math.random() * 8 + 's');
+                el.style.setProperty('--drift', (Math.random() * 180 - 90) + 'px');
+                el.style.animationDelay = -Math.random() * 10 + 's';
+
+                layer.appendChild(el);
+            }
+
+            // Falling petals
+            for (let i = 0; i < 10; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.textContent = i % 2 ? '🌸' : '🌹';
+
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.setProperty('--size', 12 + Math.random() * 15 + 'px');
+                petal.style.setProperty('--duration', 12 + Math.random() * 12 + 's');
+                petal.style.setProperty('--drift', (Math.random() * 220 - 110) + 'px');
+                petal.style.animationDelay = -Math.random() * 15 + 's';
+
+                layer.appendChild(petal);
+            }
+        }
+
+        // ---------------- CONFETTI ----------------
+        function createConfetti() {
+            const colors = [
+                '#ff4f91',
+                '#ff789f',
+                '#ffd1df',
+                '#ffffff',
+                '#c98cff',
+                '#ffcf70'
+            ];
+
+            for (let i = 0; i < 90; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.width = 5 + Math.random() * 9 + 'px';
+                piece.style.height = 8 + Math.random() * 17 + 'px';
+                piece.style.borderRadius = Math.random() > .5 ? '50%' : '3px';
+
+                piece.style.setProperty(
+                    '--drift',
+                    (Math.random() * 500 - 250) + 'px'
+                );
+
+                piece.style.animationDelay = Math.random() * .8 + 's';
+
+                document.body.appendChild(piece);
+
+                setTimeout(() => piece.remove(), 4200);
+            }
+        }
+
+        // ---------------- APP STATE ----------------
+        let currentStep = 0;
+        let isTransitioning = false;
+
+        const app = document.getElementById('app');
+
+        // ---------------- RENDER ----------------
+        function render() {
+            let html = `
+                <main class="scene">
+                    <div class="content-wrap">
+                        <section class="glass-card step-enter" id="mainCard">
+            `;
+
+            // STEP 0 — Opening
+            if (currentStep === 0) {
+                html += `
+                    <div class="text-center">
+                        <div class="eyebrow">A little something from Satyam</div>
+
+                        <div class="heart-stage">
+                            <div class="heart-3d" aria-hidden="true">
+                                <div class="heart-core"></div>
+                                <div class="heart-highlight"></div>
+                            </div>
+                        </div>
+
+                        <p class="text-pink-200/80 text-sm mb-3">
+                            For someone very special
+                        </p>
+
+                        <h1 class="title">Srishti</h1>
+
+                        <p class="text-xl md:text-2xl mt-5 font-semibold text-pink-100">
+                            This little world is just for you. ❤️
+                        </p>
+
+                        <p class="subtitle mt-4 max-w-xl mx-auto">
+                            I wanted to create something that feels a little different,
+                            a little magical, and a lot more personal.
+                        </p>
+
+                        <div class="rose-row" aria-hidden="true">
+                            <span class="rose">🌹</span>
+                            <span class="rose">🌹</span>
+                            <span class="rose">🌹</span>
+                        </div>
+
+                        <button class="premium-btn mt-2" onclick="goToStep(1)">
+                            ✨ Open Your Surprise
+                            <span class="ml-2">→</span>
+                        </button>
+                    </div>
+                `;
+            }
+
+            // STEP 1 — Romantic letter
+            else if (currentStep === 1) {
+                html += `
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="text-3xl">💌</span>
+
+                            <span class="text-xs uppercase tracking-[.2em] text-pink-200/50">
+                                A letter for you
+                            </span>
+
+                            <span class="text-3xl">🌹</span>
+                        </div>
+
+                        <div class="letter">
+                            <p class="hello">Hey Srishti ❤️</p>
+
+                            <p>
+                                I don't know if words can ever perfectly explain
+                                what you mean to me, but I still wanted to try.
+                            </p>
+
+                            <p>
+                                Somewhere between our conversations, little moments,
+                                random laughs and those simple days, you became
+                                someone incredibly special to me.
+                            </p>
+
+                            <p>
+                                I love the way your presence can make an ordinary
+                                moment feel a little more beautiful. Even the smallest
+                                conversations with you can stay in my mind for a long time.
+                            </p>
+
+                            <p>
+                                You're not just a person I care about.
+                                You're someone I genuinely feel lucky to have in my life.
+                            </p>
+
+                            <p>
+                                So I made this tiny little surprise because sometimes
+                                a normal “I love you” doesn't feel enough.
+                            </p>
+
+                            <p>
+                                I hope whenever you see this, you remember one simple
+                                thing — you are deeply special to me. ❤️
+                            </p>
+
+                            <p class="mb-0 font-semibold text-pink-100">
+                                Always keep smiling, Srishti. 🌸
+                            </p>
+                        </div>
+
+                        <div class="text-center mt-7">
+                            <button class="premium-btn" onclick="goToStep(2)">
+                                Continue <span class="ml-2">→</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // STEP 2 — 3D teddy
+            else if (currentStep === 2) {
+                html += `
+                    <div class="text-center">
+                        <div class="eyebrow">One more thing...</div>
+
+                        <div class="teddy-scene">
+                            <div class="ground-glow"></div>
+
+                            <div class="teddy">
+                                <div class="ear left"></div>
+                                <div class="ear right"></div>
+
+                                <div class="body">
+                                    <div class="belly"></div>
+                                </div>
+
+                                <div class="arm left"></div>
+                                <div class="arm right"></div>
+
+                                <div class="head">
+                                    <div class="eye left"></div>
+                                    <div class="eye right"></div>
+
+                                    <div class="muzzle">
+                                        <div class="nose"></div>
+                                        <div class="mouth"></div>
+                                    </div>
+                                </div>
+
+                                <div class="heart-prop">❤️</div>
+                            </div>
+                        </div>
+
+                        <h2 class="text-3xl md:text-4xl font-black text-pink-100">
+                            You are my favorite person. ❤️
+                        </h2>
+
+                        <p class="subtitle mt-4 max-w-xl mx-auto">
+                            And if I had to choose one person to make a little
+                            corner of the internet for, it would be you.
+                        </p>
+
+                        <div class="rose-row">
+                            <span class="rose">🌹</span>
+                            <span class="rose">💗</span>
+                            <span class="rose">🌹</span>
+                        </div>
+
+                        <button class="premium-btn" onclick="goToStep(3)">
+                            There's More <span class="ml-2">→</span>
+                        </button>
+                    </div>
+                `;
+            }
+
+            // STEP 3 — Final romantic message
+            else if (currentStep === 3) {
+                html += `
+                    <div class="text-center">
+                        <div class="final-ring">
+                            <div class="final-heart">❤️</div>
+                        </div>
+
+                        <div class="eyebrow">From my heart to yours</div>
+
+                        <h2 class="text-4xl md:text-5xl font-black leading-tight">
+                            Srishti,<br />
+                            <span class="text-pink-400">I choose you.</span>
+                        </h2>
+
+                        <p class="subtitle mt-5 max-w-xl mx-auto text-lg">
+                            In all the little moments, in all the random conversations,
+                            in every smile and every memory — I'm genuinely grateful
+                            that you're a part of my life.
+                        </p>
+
+                        <p class="mt-6 text-xl md:text-2xl font-bold text-pink-100">
+                            You're my girl. You're my happiness. You're my person. ❤️
+                        </p>
+
+                        <p class="mt-5 text-pink-200/70">
+                            — With all my heart, Satyam
+                        </p>
+
+                        <button class="premium-btn mt-8" onclick="goToStep(4)">
+                            ❤️ One Last Surprise
+                        </button>
+                    </div>
+                `;
+            }
+
+            // STEP 4 — Final
+            else if (currentStep === 4) {
+                html += `
+                    <div class="text-center">
+                        <div class="final-ring">
+                            <div class="final-heart">💖</div>
+                        </div>
+
+                        <div class="eyebrow">The end... or maybe just the beginning</div>
+
+                        <h2 class="text-4xl md:text-6xl font-black">
+                            I Love You,<br />
+                            <span class="title" style="font-size:clamp(3rem,9vw,5rem);">
+                                Srishti
+                            </span>
+                        </h2>
+
+                        <p class="subtitle text-lg mt-5 max-w-xl mx-auto">
+                            Thank you for being you.
+                            Thank you for every smile, every moment,
+                            and every little thing that makes you,
+                            <strong class="text-pink-100">you.</strong>
+                        </p>
+
+                        <div class="rose-row mt-7">
+                            <span class="rose">🌹</span>
+                            <span class="rose">❤️</span>
+                            <span class="rose">🌹</span>
+                        </div>
+
+                        <div class="mt-5 text-pink-100 font-semibold">
+                            Forever yours,<br />
+                            <span class="text-pink-400 text-xl">Satyam ❤️</span>
+                        </div>
+
+                        <button class="ghost-btn mt-8" onclick="resetAll()">
+                            ↻ Experience Again
+                        </button>
+                    </div>
+                `;
+            }
+
+            html += `
+                        </section>
+                    </div>
+                </main>
+            `;
+
+            app.innerHTML = html;
+
+            updateMusicButton();
+
+            if (currentStep === 4) {
+                setTimeout(createConfetti, 350);
+            }
+        }
+
+        // ---------------- NAVIGATION ----------------
+        window.goToStep = function(step) {
+            if (isTransitioning) return;
+
+            isTransitioning = true;
+            currentStep = step;
+
+            render();
+
+            // Tiny cinematic transition lock.
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 500);
+        };
+
+        window.resetAll = function() {
+            isTransitioning = false;
+            currentStep = 0;
+
+            render();
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+
+        // ---------------- SUBTLE CARD PARALLAX ----------------
+        function enableParallax() {
+            const card = document.getElementById('mainCard');
+            if (!card || window.matchMedia('(pointer: coarse)').matches) return;
+
+            let raf = null;
+
+            document.addEventListener('pointermove', (event) => {
+                if (raf) cancelAnimationFrame(raf);
+
+                raf = requestAnimationFrame(() => {
+                    const x = event.clientX / window.innerWidth - .5;
+                    const y = event.clientY / window.innerHeight - .5;
+
+                    card.style.transform =
+                        `perspective(1100px) rotateX(${(-y * 2.2).toFixed(2)}deg) rotateY(${(x * 2.8).toFixed(2)}deg)`;
+                });
+            });
+
+            document.addEventListener('pointerleave', () => {
+                card.style.transform = '';
+            });
+        }
+
+        // ---------------- INITIALIZE ----------------
+        createBackgroundParticles();
+        createMusicButton();
+        render();
+        enableParallax();
+
+        // Rebind parallax after each screen transition.
+        const originalGoToStep = window.goToStep;
+
+        window.goToStep = function(step) {
+            originalGoToStep(step);
+            setTimeout(enableParallax, 50);
+        };
+    </script>
+</body>
+</html>
